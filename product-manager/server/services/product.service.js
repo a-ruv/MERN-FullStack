@@ -15,4 +15,18 @@ const getProductById = async (id) => {
     return product
 }
 
-module.exports = {createProduct, getAllProducts, getProductById}
+const deleteProductById =async (id) => {
+    console.log(id)
+    const product = await Product.findByIdAndDelete(id);
+    return product
+}
+
+const updateProductById = async (id, data) => {
+    const product = await Product.findByIdAndUpdate(id, data,  {
+        runValidators: true,
+        new: true,
+    })
+    return product
+}
+
+module.exports = {createProduct, getAllProducts, getProductById, deleteProductById, updateProductById}

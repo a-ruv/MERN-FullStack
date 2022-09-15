@@ -1,4 +1,4 @@
-const {createProduct, getAllProducts, getProductById} = require('../services/product.service')
+const {createProduct, getAllProducts, getProductById, deleteProductById, updateProductById} = require('../services/product.service')
 
 const handleCreateProduct = async (req, res) => {
     try {
@@ -21,7 +21,23 @@ const handleGetAllProducts = async (req, res) => {
 const handleGetProductById = async (req, res) => {
     try {
         const product = await getProductById(req.params.id);
-        console.log(product)
+        return res.json(product)
+    } catch (error){
+        return res.status(400).json(error);
+    }
+};
+const handleDeleteProductById = async (req, res) => {
+    console.log("in the controller");
+    try {
+        const product = await deleteProductById(req.params.id);
+        return res.json(product)
+    } catch (error){
+        return res.status(400).json(error);
+    }
+};
+const handleUpdateProductById = async (req, res) => {
+    try {
+        const product = await updateProductById(req.params.id, req.body);
         return res.json(product)
     } catch (error){
         return res.status(400).json(error);
@@ -30,4 +46,6 @@ const handleGetProductById = async (req, res) => {
 
 
 
-module.exports = {handleCreateProduct, handleGetAllProducts, handleGetProductById};
+
+
+module.exports = {handleCreateProduct, handleGetAllProducts, handleGetProductById, handleDeleteProductById, handleUpdateProductById};
